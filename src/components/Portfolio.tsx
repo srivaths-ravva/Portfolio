@@ -1,12 +1,11 @@
 "use client"
 
-import React, { useEffect, useMemo, useState } from "react";
+import React, { useEffect, useState } from "react";
 import NextImage from "next/image";
-import { motion, easeOut, type MotionProps } from "framer-motion";
+import { motion, easeOut } from "framer-motion";
 import {
   Moon,
   Sun,
-  Mail,
   Github,
   Linkedin,
   Globe,
@@ -18,19 +17,14 @@ import {
   Code2,
   Calendar,
   MapPin,
-  Download,
-  Phone,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardFooter, CardHeader } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs";
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
-import { Separator } from "@/components/ui/separator";
 import {
   ResponsiveContainer,
   RadarChart,
@@ -57,7 +51,7 @@ const NAV = [
 const PROJECTS = [
   {
     title: "Fly Spy — Citizen Science Mobile App",
-    desc: "React Native + Firebase app (iOS/Android) to log GPS‑tagged *D. elegans* fly sightings in real time for an international research effort.",
+    desc: "React Native + Firebase app (iOS/Android) to log GPS-tagged *D. elegans* fly sightings in real time for an international research effort.",
     tags: ["React Native", "TypeScript", "Firebase", "Google Maps", "Expo"],
     link: "https://apps.apple.com/us/app/flyspy/id6744664303",
     image: "/projects/img-6.png",
@@ -300,7 +294,7 @@ function Navbar({ onContactClick }: { onContactClick: () => void }) {
             </Tooltip>
           </TooltipProvider>
           <Button className="hidden md:inline-flex" onClick={onContactClick}>
-            Let's talk <ArrowRight className="ml-2 h-4 w-4" />
+            Let&apos;s talk <ArrowRight className="ml-2 h-4 w-4" />
           </Button>
           <Sheet open={open} onOpenChange={setOpen}>
             <SheetTrigger asChild>
@@ -335,7 +329,7 @@ function Hero({ onContactClick }: { onContactClick: () => void }) {
           {/* LEFT: text */}
           <motion.div {...fade} className="max-w-2xl">
             <h1 className="text-4xl md:text-6xl font-semibold leading-tight tracking-tight">
-              Hey! I'm Srivaths Ravva
+              Hey! I&apos;m Srivaths Ravva
             </h1>
             
             <p className="mt-4 text-lg md:text-xl text-muted-foreground">
@@ -386,7 +380,14 @@ function Projects() {
             <Card className="overflow-hidden group">
               <div className="relative aspect-video overflow-hidden">
                 <a href={p.link} target="_blank" rel="noopener noreferrer" className="block h-full w-full">
-                  <img src={p.image} alt={p.title} className="object-cover w-full h-full group-hover:scale-105 transition-transform duration-500"/>
+                  <NextImage
+                    src={p.image}
+                    alt={p.title}
+                    fill
+                    className="object-cover transition-transform duration-500 group-hover:scale-105"
+                    sizes="(min-width:1024px) 33vw, (min-width:768px) 50vw, 100vw"
+                    priority={i < 3}
+                  />                
                 </a>
                 {p.badge && (
                   <Badge
@@ -528,14 +529,28 @@ function Skills() {
 function Contact() {
   const [loading, setLoading] = useState(false);
   const [sent, setSent] = useState(false);
-
-  const onSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setLoading(true);
-    setTimeout(() => {
-      setLoading(false);
-      setSent(true);
-    }, 800);
+
+    const fd = new FormData(e.currentTarget);
+    // 👇 These keys must match the `name` props below
+    const payload = {
+      name: String(fd.get("name") || ""),
+      email: String(fd.get("email") || ""),
+      company: String(fd.get("company") || ""),
+      message: String(fd.get("message") || ""),
+    };
+
+    const res = await fetch("/api/contact", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(payload),
+    });
+
+    setLoading(false);
+    if (res.ok) setSent(true);
+    else alert("Error sending email");
   };
 
   return (
@@ -549,32 +564,33 @@ function Contact() {
           {sent ? (
             <div className="text-green-600 dark:text-green-400">Thanks! I'll reply within 24 hours.</div>
           ) : (
-            <form className="grid grid-cols-1 md:grid-cols-2 gap-4" onSubmit={onSubmit}>
-              <div className="space-y-2">
-                <label className="text-sm">Name</label>
-                <Input placeholder="Jane Doe" required />
-              </div>
-              <div className="space-y-2">
-                <label className="text-sm">Email</label>
-                <Input type="email" placeholder="jane@company.com" required />
-              </div>
-              <div className="md:col-span-2 space-y-2">
-                <label className="text-sm">Company</label>
-                <Input placeholder="Acme Inc." />
-              </div>
-              <div className="md:col-span-2 space-y-2">
-                <label className="text-sm">Project brief</label>
-                <Textarea placeholder="A few sentences about what you want to build…" className="min-h-32" required />
-              </div>
-              <div className="flex items-center justify-between md:col-span-2">
-                <div className="flex items-center gap-3 text-muted-foreground">
-                  <a href="mailto:srivaths.ravva@gmail.com" className="inline-flex items-center gap-2 hover:text-foreground"><Mail size={18}/> Email</a>
-                  <a href="https://github.com/srivaths-ravva" className="inline-flex items-center gap-2 hover:text-foreground"><Github size={18}/> GitHub</a>
-                  <a href="https://linkedin.com/in/srivaths-ravva" className="inline-flex items-center gap-2 hover:text-foreground"><Linkedin size={18}/> LinkedIn</a>
+              <form className="grid grid-cols-1 md:grid-cols-2 gap-4" onSubmit={handleSubmit}>
+                <div className="space-y-2">
+                  <label htmlFor="name" className="text-sm">Name</label>
+                  <Input id="name" name="name" placeholder="Jane Doe" required />
                 </div>
-                <Button type="submit" disabled={loading}>{loading ? "Sending…" : "Send message"}</Button>
-              </div>
-            </form>
+
+                <div className="space-y-2">
+                  <label htmlFor="email" className="text-sm">Email</label>
+                  <Input id="email" name="email" type="email" placeholder="jane@company.com" required />
+                </div>
+
+                <div className="md:col-span-2 space-y-2">
+                  <label htmlFor="company" className="text-sm">Company</label>
+                  <Input id="company" name="company" placeholder="Acme Inc." />
+                </div>
+
+                <div className="md:col-span-2 space-y-2">
+                  <label htmlFor="message" className="text-sm">Project brief</label>
+                  <Textarea id="message" name="message" placeholder="A few sentences…" className="min-h-32" required />
+                </div>
+
+                <div className="flex items-center justify-end md:col-span-2">
+                  <Button type="submit" disabled={loading}>
+                    {loading ? "Sending…" : "Send message"}
+                  </Button>
+                </div>
+              </form>
           )}
         </CardContent>
       </Card>
