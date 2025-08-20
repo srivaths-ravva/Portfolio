@@ -562,7 +562,7 @@ function Contact() {
         </CardHeader>
         <CardContent>
           {sent ? (
-            <div className="text-green-600 dark:text-green-400">Thanks! I'll reply within 24 hours.</div>
+            <div className="text-green-600 dark:text-green-400">Thanks! I&apos;ll reply within 24 hours.</div>
           ) : (
               <form className="grid grid-cols-1 md:grid-cols-2 gap-4" onSubmit={handleSubmit}>
                 <div className="space-y-2">
@@ -621,7 +621,6 @@ export default function Portfolio() {
     return () => { document.documentElement.style.scrollBehavior = "auto"; };
   }, []);
 
-  const contactRef = React.useRef<HTMLElement | null>(null);
   const onContactClick = () => {
     document.querySelector("#contact")?.scrollIntoView({ behavior: "smooth", block: "start" });
   };
