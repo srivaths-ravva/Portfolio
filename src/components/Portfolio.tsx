@@ -173,20 +173,12 @@ const EXPERIENCE = [
 ];
 
 const RADAR_DATA = [
-  { skill: "React", value: 96 },
-  { skill: "TypeScript", value: 92 },
-  { skill: "Node", value: 88 },
-  { skill: "UI/UX", value: 90 },
-  { skill: "Data Viz", value: 86 },
-  { skill: "ML Ops", value: 74 },
-];
-
-const BAR_DATA = [
-  { name: "2021", Projects: 6 },
-  { name: "2022", Projects: 9 },
-  { name: "2023", Projects: 14 },
-  { name: "2024", Projects: 18 },
-  { name: "2025", Projects: 22 },
+  { skill: "Frontend", value: 100 },
+  { skill: "Backend", value: 95 },
+  { skill: "DevOps", value: 60 },
+  { skill: "Data Science", value: 75 },
+  { skill: "Mobile", value: 90 },
+  { skill: "ML/AI", value: 85 },
 ];
 
 // ----- Helpers -----
@@ -480,45 +472,28 @@ function Skills() {
   return (
     <section id="skills" className="container mx-auto px-4 md:px-6 py-16 md:py-24">
       <SectionHeading eyebrow="Toolbox" title="Skills" subtitle="Breadth with depth where it matters." />
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-        <Card>
-          <CardHeader>
-            <h3 className="font-semibold text-lg inline-flex items-center gap-2"><Code2 size={18}/> Technical profile</h3>
-          </CardHeader>
-          <CardContent>
-            <div className="h-72 w-full">
-              <ResponsiveContainer>
-                <RadarChart data={RADAR_DATA} outerRadius="80%">
-                  <PolarGrid />
-                  <PolarAngleAxis dataKey="skill" />
-                  <Radar dataKey="value" />
-                </RadarChart>
-              </ResponsiveContainer>
-            </div>
-          </CardContent>
-        </Card>
-        <Card>
-          <CardHeader>
-            <h3 className="font-semibold text-lg">Output over time</h3>
-          </CardHeader>
-          <CardContent>
-            <div className="h-72 w-full">
-              <ResponsiveContainer>
-                <BarChart data={BAR_DATA}>
-                  <CartesianGrid strokeDasharray="3 3" />
-                  <XAxis dataKey="name" />
-                  <YAxis />
-                  <ReTooltip />
-                  <Bar dataKey="Projects" />
-                </BarChart>
-              </ResponsiveContainer>
-            </div>
-          </CardContent>
-        </Card>
-      </div>
+      <Card>
+        <CardHeader>
+          <h3 className="font-semibold text-lg inline-flex items-center gap-2"><Code2 size={18}/> Technical profile</h3>
+        </CardHeader>
+        <CardContent>
+          <div className="h-72 w-full text-xl">
+            <ResponsiveContainer>
+              <RadarChart data={RADAR_DATA} outerRadius="80%">
+                <PolarGrid />
+                <PolarAngleAxis dataKey="skill" />
+                <Radar dataKey="value" />
+              </RadarChart>
+            </ResponsiveContainer>
+          </div>
+        </CardContent>
+      </Card>
 
       <div className="mt-6 grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-3">
-        {["Python", "TypeScript", "JavaScript", "Java", "C", "SQL", "React", "Next.js", "React Native", "Tailwind", "Material UI", "PyTorch", "Pandas", "NumPy", "Scikit‑Learn", "PostgreSQL", "Supabase", "Firebase", "Docker"].map((t) => (
+        {["TypeScript", "JavaScript", "React", "Next.js", "Express.js", "Tailwind", "Material UI", 
+        "PostgreSQL", "Prisma", "Supabase", "Firebase", "Docker", "HTML", "CSS", "Python", "PyTorch",
+        "Pandas", "NumPy", "Scikit-Learn", "Java", "C", "SQL", "React Native", "Flutter", "Dart", "Swift",
+        "Docker", "Kubernetes", "Azure", "Copilot Studio"].map((t) => (
           <Badge key={t} variant="outline" className="justify-center py-2">{t}</Badge>
         ))}
       </div>
@@ -584,11 +559,20 @@ function Contact() {
                   <label htmlFor="message" className="text-sm">Project brief</label>
                   <Textarea id="message" name="message" placeholder="A few sentences…" className="min-h-32" required />
                 </div>
-
-                <div className="flex items-center justify-end md:col-span-2">
-                  <Button type="submit" disabled={loading}>
-                    {loading ? "Sending…" : "Send message"}
-                  </Button>
+                <div className="flex items-center justify-between md:col-span-2">
+                  <div className="flex items-center gap-3 text-muted-foreground">
+                    <a href="https://github.com/srivaths-ravva" target="_blank" className="inline-flex items-center gap-1 hover:text-foreground">
+                      <Github size={18} /> GitHub
+                    </a>
+                    <a href="https://linkedin.com/in/srivaths-ravva" target="_blank" className="inline-flex items-center gap-1 hover:text-foreground">
+                      <Linkedin size={18} /> LinkedIn
+                    </a>
+                  </div>
+                  <div>
+                    <Button type="submit" disabled={loading}>
+                      {loading ? "Sending…" : "Send message"}
+                    </Button>
+                  </div>
                 </div>
               </form>
           )}
@@ -603,11 +587,6 @@ function Footer() {
     <footer className="border-t">
       <div className="container mx-auto px-4 md:px-6 py-10 flex flex-col md:flex-row items-center justify-between gap-4">
         <div className="text-sm text-muted-foreground">© {new Date().getFullYear()} Srivaths Ravva. All rights reserved.</div>
-        <div className="flex items-center gap-3 text-muted-foreground">
-          <a href="#" className="inline-flex items-center gap-1 hover:text-foreground"><Github size={18}/> GitHub</a>
-          <a href="#" className="inline-flex items-center gap-1 hover:text-foreground"><Linkedin size={18}/> LinkedIn</a>
-          <a href="#" className="inline-flex items-center gap-1 hover:text-foreground"><Globe size={18}/> Blog</a>
-        </div>
       </div>
     </footer>
   );
