@@ -149,6 +149,17 @@ const EXPERIENCE = [
     ],
   },
   {
+    role: "Teaching Assistant",
+    org: "Stony Brook University.",
+    period: "Aug 2023 — May 2024",
+    location: "Stony Brook, NY",
+    image: "sbu.jpeg",
+    bullets: [
+      "Ran lab sessions to help students learn Object Oriented Programming.",
+      "Proctored and graded labs, projects, midterm exams, and final exams.",
+    ],
+  },
+  {
     role: "IT Technician",
     org: "Stony Brook University",
     period: "Aug 2022 — Jan 2024",
@@ -159,17 +170,6 @@ const EXPERIENCE = [
       "Supported computers across campus by pushing updates and patches through Quest KACE Management System",
       "Assisted customers by managing tickets through TeamDynamix. ",
       "Maintained Scala Systems across campus by updating/troubleshooting software.",
-    ],
-  },
-  {
-    role: "Teaching Assistant",
-    org: "Stony Brook University.",
-    period: "Aug 2023 — May 2024",
-    location: "Stony Brook, NY",
-    image: "sbu.jpeg",
-    bullets: [
-      "Ran lab sessions to help students learn Object Oriented Programming.",
-      "Proctored and graded labs, projects, midterm exams, and final exams.",
     ],
   },
   {
