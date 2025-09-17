@@ -149,6 +149,19 @@ const EXPERIENCE = [
     ],
   },
   {
+    role: "IT Technician",
+    org: "Stony Brook University",
+    period: "Aug 2022 — Jan 2024",
+    location: "Stony Brook, NY",
+    image: "sbu.jpeg",
+    bullets: [
+      "Offered customer support/services to staff and students to troubleshoot computers, mobile devices, and printers",
+      "Supported computers across campus by pushing updates and patches through Quest KACE Management System",
+      "Assisted customers by managing tickets through TeamDynamix. ",
+      "Maintained Scala Systems across campus by updating/troubleshooting software.",
+    ],
+  },
+  {
     role: "Teaching Assistant",
     org: "Stony Brook University.",
     period: "Aug 2023 — May 2024",
@@ -493,7 +506,7 @@ function Skills() {
         {["TypeScript", "JavaScript", "React", "Next.js", "Express.js", "Tailwind", "Material UI", 
         "PostgreSQL", "Prisma", "Supabase", "Firebase", "Docker", "HTML", "CSS", "Python", "PyTorch",
         "Pandas", "NumPy", "Scikit-Learn", "Java", "C", "SQL", "React Native", "Flutter", "Dart", "Swift",
-        "Docker", "Kubernetes", "Azure", "Copilot Studio"].map((t) => (
+        "Kubernetes", "Azure", "Copilot Studio"].map((t) => (
           <Badge key={t} variant="outline" className="justify-center py-2">{t}</Badge>
         ))}
       </div>
